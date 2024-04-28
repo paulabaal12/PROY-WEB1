@@ -1,0 +1,60 @@
+
+.login-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+
+  .admin {
+    font-size: 12px;
+    text-align: center;
+    color: #d82834;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .login-submit-button {
+    padding: 10px 20px;
+    background-color: #d82834;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .login-submit-button:hover {
+    background-color: #e6536b;
+  }
+  
+  .login-container {
+    background-color: white;
+    padding: 65px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .login-submit-button {
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+  
