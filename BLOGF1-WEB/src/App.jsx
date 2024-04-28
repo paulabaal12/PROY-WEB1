@@ -21,11 +21,13 @@ const App = () => {
       <div className="header">
         <img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" />
         <h1>F1 Blog</h1>
-        {isLoggedIn ? (
-          <button onClick={handleLogout}>Cerrar Sesión</button>
-        ) : (
-          <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
-        )}
+        <div className="login-button">
+          {isLoggedIn ? (
+            <button onClick={handleLogout}>Cerrar Sesión</button>
+          ) : (
+            <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
+          )}
+        </div>
       </div>
       {showLogin ? <Login onLogin={handleLogin} /> : <Posts />}
       <Footer />

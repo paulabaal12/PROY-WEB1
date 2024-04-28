@@ -19,9 +19,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <h1>Iniciar Sesión</h1>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <input
           type="text"
           placeholder="Usuario"
@@ -34,7 +34,8 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Iniciar Sesión</button>
+        <div style={{ flex: 1 }} /> {/* Este div empujará el botón hacia abajo */}
+        <button type="submit" style={{ alignSelf: 'flex-end' }}>Iniciar Sesión</button>
       </form>
     </div>
   );
