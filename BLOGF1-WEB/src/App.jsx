@@ -1,23 +1,35 @@
-import { Routes, Route } from 'react-router-dom';
-import BlogPage from './pages/blogpage';
-import AdminPage from './pages/Admin';
-import LoginPage from './pages/login';
-import ProtectedRoute from './components/ruta';
+import React, { useState } from 'react';
+import Posts from './Posts';
+import Login from './components/Login';
+import Footer from './components/Footer';
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    setShowLogin(false);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
-    <Routes>
-      <Route path="/" element={<BlogPage />} />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="/login" element={<LoginPage />} />
-    </Routes>
+    <div>
+      <div className="header">
+        <img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" />
+        <h1>F1 Blog</h1>
+        {isLoggedIn ? (
+          <button onClick={handleLogout}>Cerrar Sesión</button>
+        ) : (
+          <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
+        )}
+      </div>
+      {showLogin ? <Login onLogin={handleLogin} /> : <Posts />}
+      <Footer />
+    </div>
   );
 };
 

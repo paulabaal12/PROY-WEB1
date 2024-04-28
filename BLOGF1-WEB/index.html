@@ -1,238 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>F1</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/prop-types@15.8.1/prop-types.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F1 Blog</title>
     <style>
-        body {
-            background-image: url('https://http2.mlstatic.com/D_NQ_NP_721165-MLM72591377224_112023-O.webp');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            background-color: #F8F0F0;
-            background-blend-mode: overlay;
-            background-attachment: fixed; 
-        }
+      body {
+        background-image: url('https://http2.mlstatic.com/D_NQ_NP_721165-MLM72591377224_112023-O.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-color: #F8F0F0;
+        background-blend-mode: overlay;
+        background-attachment: fixed;
+      }
 
-        .header {
-            background-color: red;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-        }
+      .header {
+        background-color: red;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        color: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+      }
 
-        .header img {
-            margin-right: 10px;
-        }
-        .post-image {
-            max-width: 100%;
-            height:300px;
-            object-fit: cover;
-        }
+      .header img {
+        margin-right: 10px;
+      }
+      .post-image {
+        max-width: 100%;
+        height: 300px;
+        object-fit: cover;
+      }
+      .post-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      .post-details {
+        background-color: red;
+        border-radius: 10px;
+        padding: 10px;
+        color: white;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      @media (max-width: 768px) {
         .post-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
+          flex-direction: column;
+          align-items: center;
         }
+
+        .post-image {
+          height: 200px;
+        }
+
         .post-details {
-            background-color: red;
-            border-radius: 10px;
-            padding: 10px;
-            color: white;
-            text-align: center;
-            margin-bottom: 10px;
+          margin-bottom: 20px;
         }
-
-        @media (max-width: 768px) {
-            .post-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .post-image {
-                height: 200px;
-            }
-
-            .post-details {
-                margin-bottom: 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="root"></div>
-    <script type="text/babel">
-        const Footer = () => {
-          const styles = {
-            padding: '20px 25px',
-            backgroundColor: '#FF0000',
-            fontSize: '14px',
-            textAlign: 'center',
-            textTransform: 'uppercase',
-            color: 'white',
-            fontWeight: 'bold',
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            fontFamily: 'sans-serif',
-            zIndex: 10,
-          };
-          return (
-            <footer style={styles}>
-              © Paula Barillas | 22764
-            </footer>
-          );
-        };
-
-        const Post = ({ title, content, imageUrl, year, country, nameWinner, team, date, timeFastestLap }) => {
-          const styles = {
-            backgroundColor: 'white',
-            border: '4px solid red',
-            padding: '20px',
-            margin: '20px auto',
-            maxWidth: '1000px',
-            textAlign: 'center',
-            position: 'relative',
-            zIndex: 1,
-          };
-          return (
-            <div style={styles}>
-              <h1>{title}</h1>
-              <h2>{country} | {year}</h2>
-              <div className="post-container">
-                <div>
-                  <img className="post-image" src={imageUrl} alt="Post" />
-                  <p> {content}</p>
-
-                </div>
-                <div>
-                  
-                  <div className="post-details">
-                    <h2> {nameWinner}</h2>
-                  </div>
-                  <div className="post-details">
-                    <h3>{team}</h3>
-                  </div>
-
-                  <div className="post-details">
-                    <h3>{date}</h3>
-                  </div>
-                  <div className="post-details">
-                    <h2>{timeFastestLap}</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        };
-
-        Post.propTypes = {
-          title: PropTypes.string.isRequired,
-          content: PropTypes.string.isRequired,
-          imageUrl: PropTypes.string.isRequired,
-          year: PropTypes.number.isRequired,
-          country: PropTypes.string.isRequired,
-          nameWinner: PropTypes.string.isRequired,
-          team: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-          timeFastestLap: PropTypes.string.isRequired,
-        };
-
-        const Posts = () => {
-          const [posts, setPosts] = React.useState([]);
-          const [loading, setLoading] = React.useState(true);
-          const [error, setError] = React.useState(null);
-
-          React.useEffect(() => {
-            const fetchPosts = async () => {
-              try {
-                const response = await fetch('http://localhost:3001/posts/');
-                const data = await response.json();
-                if (!response.ok) {
-                  throw new Error('Error fetching posts');
-                }
-                setPosts(data);
-                setLoading(false);
-              } catch (error) {
-                setError(error.message);
-                setLoading(false);
-              }
-            };
-            fetchPosts();
-          }, []);
-
-          if (loading) {
-            return <Loading />;
-          }
-
-          if (error) {
-            return <div>Error: {error}</div>;
-          }
-
-          if (posts.length === 0) {
-            return <div>No posts available.</div>;
-          }
-
-          return (
-            <div style={{ paddingTop: '80px', paddingBottom: '100px' }}>
-              {posts.map(post => (
-                <Post
-                  key={post.id}
-                  title={post.name_circuit}
-                  content={post.highlights}
-                  imageUrl={post.image_base64}
-                  year={post.year}
-                  country={post.country_circuit}
-                  nameWinner={post.name_winner}
-                  team={post.team}
-                  date={post.date}
-                  timeFastestLap={post.time_fastest_lap}
-                />
-              ))}
-            </div>
-          );
-        };
-
-        const Loading = () => {
-          const loadingStyle = {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-            fontSize: '24px',
-            fontWeight: 'bold',
-          };
-
-          return <div style={loadingStyle}>Loading...</div>;
-        };
-
-        const App = () => {
-          return (
-            <div>
-              <div className="header">
-                <img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" />
-                <h1>F1 Blog</h1>
-              </div>
-              <Posts />
-              <Footer />
-            </div>
-          );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
