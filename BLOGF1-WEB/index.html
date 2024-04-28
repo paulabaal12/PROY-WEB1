@@ -13,6 +13,12 @@
         background-color: #F8F0F0;
         background-blend-mode: overlay;
         background-attachment: fixed;
+        margin: 0; 
+        padding: 0; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; 
       }
 
       .header {
@@ -31,17 +37,20 @@
       .header img {
         margin-right: 10px;
       }
+
       .post-image {
         max-width: 100%;
         height: 300px;
         object-fit: cover;
       }
+
       .post-container {
         display: flex;
         justify-content: center;
         align-items: flex-start;
         gap: 20px;
       }
+
       .post-details {
         background-color: red;
         border-radius: 10px;
@@ -68,7 +77,8 @@
     </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
