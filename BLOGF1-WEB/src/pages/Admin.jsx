@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AdminPage = () => {
@@ -15,14 +15,15 @@ const AdminPage = () => {
     highlights: '',
     image_base64: '',
   });
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // Verificar si el usuario está autenticado
   const token = localStorage.getItem('token');
-  if (!token) {
-    history.push('/login');
-    return null;
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, [token, navigate]);
 
   // Obtener todas las publicaciones
   const fetchPosts = async () => {
@@ -38,7 +39,7 @@ const AdminPage = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -46,11 +47,15 @@ const AdminPage = () => {
   const handleCreatePost = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/posts', newPost, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(
+        '/api/posts',
+        newPost,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setNewPost({
         name_circuit: '',
         country_circuit: '',
@@ -71,11 +76,15 @@ const AdminPage = () => {
   // Actualizar una publicación
   const handleUpdatePost = async (id, updatedPost) => {
     try {
-      await axios.put(`/api/posts/${id}`, updatedPost, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.put(
+        `/api/posts/${id}`,
+        updatedPost,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       fetchPosts();
     } catch (error) {
       console.error('Error updating post:', error);
@@ -106,7 +115,53 @@ const AdminPage = () => {
           value={newPost.name_circuit}
           onChange={(e) => setNewPost({ ...newPost, name_circuit: e.target.value })}
         />
-        {/* Otros campos del formulario para crear una nueva publicación */}
+        <input
+          type="text"
+          placeholder="País del circuito"
+          value={newPost.country_circuit}
+          onChange={(e) => setNewPost({ ...newPost, country_circuit: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Nombre del ganador"
+          value={newPost.name_winner}
+          onChange={(e) => setNewPost({ ...newPost, name_winner: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Equipo del ganador"
+          value={newPost.team}
+          onChange={(e) => setNewPost({ ...newPost, team: e.target.value })}
+        />
+        <input
+          type="date"
+          placeholder="Fecha de la carrera"
+          value={newPost.date}
+          onChange={(e) => setNewPost({ ...newPost, date: e.target.value })}
+        />
+        <input
+          type="number"
+          placeholder="Año"
+          value={newPost.year}
+          onChange={(e) => setNewPost({ ...newPost, year: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Tiempo de vuelta más rápida"
+          value={newPost.time_fastest_lap}
+          onChange={(e) => setNewPost({ ...newPost, time_fastest_lap: e.target.value })}
+        />
+        <textarea
+          placeholder="Puntos destacados"
+          value={newPost.highlights}
+          onChange={(e) => setNewPost({ ...newPost, highlights: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="URL de la imagen (base64)"
+          value={newPost.image_base64}
+          onChange={(e) => setNewPost({ ...newPost, image_base64: e.target.value })}
+        />
         <button type="submit">Crear Publicación</button>
       </form>
       <h2>Publicaciones existentes</h2>
