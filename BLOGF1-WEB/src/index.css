@@ -45,6 +45,8 @@ button:focus-visible {
   cursor: pointer;
   align-self: end;
   transition: border-color 0.25s;
+  color: #1a1a1a;
+  text-decoration: none;
 }
 
 .button2:hover {
