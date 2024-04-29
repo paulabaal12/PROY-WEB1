@@ -39,10 +39,14 @@ button:focus-visible {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
+  margin-right: 18px; 
+  justify-content: flex-start;
   background-color: #1a1a1a;
   cursor: pointer;
+  align-self: end;
   transition: border-color 0.25s;
 }
+
 .button2:hover {
   border-color: #dc3030;
 }
@@ -60,6 +64,6 @@ button:focus-visible {
     color: #ff748b;
   }
   .button2 {
-    background-color: #551fdf8b;
+    background-color: #ebd1d1;
   }
 }

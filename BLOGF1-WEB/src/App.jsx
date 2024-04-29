@@ -23,7 +23,7 @@ const App = () => {
         <img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" />
         <h1>F1 Blog</h1>
         {isLoggedIn && (
-          <div className="admin-options">
+          <div className="admin-options login-button">
             <button onClick={() => window.location.href = '/admin/create'}  className='button2' >Crear Post</button>
             <button onClick={() => window.location.href = '/admin/edit'} className='button2'>Editar Post</button>
             <button onClick={() => window.location.href = '/admin/delete'}  className='button2' >Eliminar Post</button>
