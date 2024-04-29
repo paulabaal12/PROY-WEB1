@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useApi from '../hooks/useApi';
+import  './pages.css';
 
 const DeletePostPage = () => {
   const [posts, setPosts] = useState([]);

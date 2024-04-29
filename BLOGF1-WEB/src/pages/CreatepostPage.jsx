@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useApi from '../hooks/useApi';
+import  './pages.css';
 
 const CreatePostPage = () => {
   const [newPost, setNewPost] = useState({

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useApi from '../hooks/useApi';
+import  './pages.css';
 
 const EditPostPage = () => {
   const [posts, setPosts] = useState([]);
@@ -32,10 +33,13 @@ const EditPostPage = () => {
   const handleUpdatePost = async (e) => {
     e.preventDefault();
     try {
+      const updatedPost = Object.fromEntries(
+        Object.entries(editingPost).filter(([key, value]) => value !== '')
+      );
       await sendRequest({
         method: 'put',
         url: `/posts/${editingPost.id}`,
-        data: editingPost,
+        data: updatedPost,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -47,6 +51,7 @@ const EditPostPage = () => {
       alert('Error al actualizar la publicación');
     }
   };
+  
 
   const handleChange = (e) => {
     setEditingPost({ ...editingPost, [e.target.name]: e.target.value });
@@ -55,6 +60,7 @@ const EditPostPage = () => {
 
   return (
     <div>
+      <div classname = 'clasesss'></div>
       <h1>Editar Publicación</h1>
       {editingPost ? (
         <form onSubmit={handleUpdatePost}>

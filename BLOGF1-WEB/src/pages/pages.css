@@ -17,8 +17,10 @@
     align-items: flex-start;
     gap: 20px;
   }
-
-  .post-details {
+.clasesss{
+    margin: 100px;
+}
+    .post-details {
     background-color: red;
     border-radius: 10px;
     padding: 10px;
