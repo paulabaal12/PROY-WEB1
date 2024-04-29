@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import useApi from '../hooks/useApi';
 
 const EditPostPage = () => {
   const [posts, setPosts] = useState([]);
   const [editingPost, setEditingPost] = useState(null);
+  const { loading, error, sendRequest } = useApi();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('/api/posts', {
+        const response = await sendRequest({
+          method: 'get',
+          url: '/posts',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        setPosts(response.data);
+        setPosts(response);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [sendRequest]);
 
   const handleEditPost = (post) => {
     setEditingPost(post);
@@ -29,7 +32,10 @@ const EditPostPage = () => {
   const handleUpdatePost = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/posts/${editingPost.id}`, editingPost, {
+      await sendRequest({
+        method: 'put',
+        url: `/posts/${editingPost.id}`,
+        data: editingPost,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -45,6 +51,7 @@ const EditPostPage = () => {
   const handleChange = (e) => {
     setEditingPost({ ...editingPost, [e.target.name]: e.target.value });
   };
+
 
   return (
     <div>

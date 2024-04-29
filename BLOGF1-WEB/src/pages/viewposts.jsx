@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import useApi from '../hooks/useApi';
 import Post from '../Post';
 
 const ViewPostsPage = () => {
   const [posts, setPosts] = useState([]);
+  const { loading, error, sendRequest } = useApi();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('/api/posts', {
+        const response = await sendRequest({
+          method: 'get',
+          url: '/posts',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        setPosts(response.data);
+        setPosts(response);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [sendRequest]);
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import useApi from '../hooks/useApi';
 
 const CreatePostPage = () => {
   const [newPost, setNewPost] = useState({
@@ -13,6 +13,7 @@ const CreatePostPage = () => {
     highlights: '',
     image_base64: '',
   });
+  const { loading, error, sendRequest } = useApi();
 
   const handleChange = (e) => {
     setNewPost({ ...newPost, [e.target.name]: e.target.value });
@@ -21,7 +22,10 @@ const CreatePostPage = () => {
   const handleCreatePost = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/posts', newPost, {
+      await sendRequest({
+        method: 'post',
+        url: '/posts',
+        data: newPost,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
