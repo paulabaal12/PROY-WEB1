@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import Posts from './Posts';
 import Login from './components/Login';
 import Footer from './components/Footer';
+import { Route, Routes, Link } from 'react-router-dom';
+import CreatepostPage from './pages/CreatepostPage';
+import EditPostPage from './pages/EditPostPage';
+import DeletePostPage from './pages/DeletePostPage';
+import ViewPostsPage from './pages/viewposts';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,10 +29,10 @@ const App = () => {
         <h1>F1 Blog</h1>
         {isLoggedIn && (
           <div className="admin-options login-button">
-            <button onClick={() => window.location.href = '/admin/create'}  className='button2' >Crear Post</button>
-            <button onClick={() => window.location.href = '/admin/edit'} className='button2'>Editar Post</button>
-            <button onClick={() => window.location.href = '/admin/delete'}  className='button2' >Eliminar Post</button>
-            <button onClick={() => window.location.href = '/admin/view'}  className='button2' >Ver Posts</button>
+            <Link to="admin/create-post" className='button2'>Crear Post</Link>
+            <Link to="admin/edit-post" className='button2'>Editar Post</Link>
+            <Link to="admin/delete-post" className='button2'>Eliminar Post</Link>
+            <Link to="admin/view-posts" className='button2'>Ver Posts</Link>
           </div>
         )}
         <div className="login-button">
@@ -38,7 +43,13 @@ const App = () => {
           )}
         </div>
       </div>
-      {showLogin ? <Login onLogin={handleLogin} /> : <Posts />}
+      <Routes>
+        <Route path="admin/create-post" element={<CreatepostPage />} />
+        <Route path="admin/edit-post" element={<EditPostPage />} />
+        <Route path="admin/delete-post" element={<DeletePostPage />} />
+        <Route path="admin/view-posts" element={<ViewPostsPage />} />
+        <Route path="/" element={showLogin ? <Login onLogin={handleLogin} /> : <Posts />} />
+      </Routes>
       <Footer />
     </div>
   );
