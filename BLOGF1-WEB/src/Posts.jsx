@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
+import axios from 'axios';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -9,18 +10,15 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:3001/posts/');
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error('Error fetching posts');
-        }
-        setPosts(data);
+        const response = await axios.get('http://localhost:3001/posts/');
+        setPosts(response.data);
         setLoading(false);
       } catch (error) {
         setError(error.message);
         setLoading(false);
       }
     };
+
     fetchPosts();
   }, []);
 
@@ -38,7 +36,7 @@ const Posts = () => {
 
   return (
     <div style={{ paddingTop: '80px', paddingBottom: '100px' }}>
-      {posts.map(post => (
+      {posts.map((post) => (
         <Post
           key={post.id}
           title={post.name_circuit}
@@ -65,7 +63,6 @@ const Loading = () => {
     fontSize: '24px',
     fontWeight: 'bold',
   };
-
   return <div style={loadingStyle}>Loading...</div>;
 };
 

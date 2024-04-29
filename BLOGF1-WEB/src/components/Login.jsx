@@ -7,7 +7,7 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'proyectoweb') {
+    if (username === 'admin' && password === 'leclerc') {
       onLogin();
     } else {
       alert('Credenciales incorrectas');
@@ -30,7 +30,9 @@ const Login = ({ onLogin }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className="login-submit-button">Iniciar Sesión</button>
+        <button type="submit" className="login-submit-button">
+          Iniciar Sesión
+        </button>
       </form>
       <h3 className="admin">Solo para administrador</h3>
     </div>
