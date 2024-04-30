@@ -25,4 +25,4 @@ Para ejecutar el proyecto localmente, sigue estos pasos:
 - npm install
 4. Después de que se completen las instalaciones, ejecuta el siguiente comando para iniciar el servidor de desarrollo:
 - npm run dev
-5. Abre tu navegador web y visita http://localhost:{puerto disponible} para ver el proyecto en funcionamiento.
+5. Abre tu navegador web y visita http://localhost:{puerto} para ver el proyecto en funcionamiento.
