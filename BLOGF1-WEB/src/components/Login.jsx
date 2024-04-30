@@ -9,6 +9,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     if (username === 'admin' && password === 'leclerc') {
       onLogin();
+      localStorage.setItem('isLoggedIn', 'true'); 
     } else {
       alert('Credenciales incorrectas');
     }

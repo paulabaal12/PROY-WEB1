@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Posts from './Posts';
 import Login from './components/Login';
 import Footer from './components/Footer';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import CreatepostPage from './pages/CreatepostPage';
 import EditPostPage from './pages/EditPostPage';
 import DeletePostPage from './pages/DeletePostPage';
@@ -11,10 +11,12 @@ import ViewPostsPage from './pages/viewposts';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     setIsLoggedIn(true);
     setShowLogin(false);
+    navigate('/'); 
   };
 
   const handleLogout = () => {
@@ -44,10 +46,16 @@ const App = () => {
         </div>
       </div>
       <Routes>
-        <Route path="admin/create-post" element={<CreatepostPage />} />
-        <Route path="admin/edit-post" element={<EditPostPage />} />
-        <Route path="admin/delete-post" element={<DeletePostPage />} />
-        <Route path="admin/view-posts" element={<ViewPostsPage />} />
+        {isLoggedIn ? (
+          <>
+            <Route path="admin/create-post" element={<CreatepostPage />} />
+            <Route path="admin/edit-post" element={<EditPostPage />} />
+            <Route path="admin/delete-post" element={<DeletePostPage />} />
+            <Route path="admin/view-posts" element={<ViewPostsPage />} />
+          </>
+        ) : (
+          <Route path="admin/*" element={<Login onLogin={handleLogin} />} />
+        )}
         <Route path="/" element={showLogin ? <Login onLogin={handleLogin} /> : <Posts />} />
       </Routes>
       <Footer />

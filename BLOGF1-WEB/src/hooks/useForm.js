@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useApi from './useApi';
 
-const useForm = (initialState, onSubmit) => {
+const useForm = (initialState) => {
   const [formData, setFormData] = useState(initialState);
   const { sendRequest } = useApi();
 
@@ -15,7 +15,7 @@ const useForm = (initialState, onSubmit) => {
     try {
       await sendRequest({
         method: 'POST',
-        url: '/posts', 
+        url: '/posts',
         data: formData,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -27,7 +27,6 @@ const useForm = (initialState, onSubmit) => {
       console.error('Error al crear la publicación:', error);
       alert('Error al crear la publicación');
     }
-    onSubmit(formData); // Llama a la función de envío proporcionada
   };
 
   return { formData, handleChange, handleSubmit };
