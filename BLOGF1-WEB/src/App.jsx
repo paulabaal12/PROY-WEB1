@@ -7,22 +7,28 @@ import CreatepostPage from './pages/CreatepostPage';
 import EditPostPage from './pages/EditPostPage';
 import DeletePostPage from './pages/DeletePostPage';
 import ViewPostsPage from './pages/viewposts';
+import withAdminAuth from './components/withAdmin'; 
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
   const [showLogin, setShowLogin] = useState(false);
-  const navigate = useNavigate();
 
   const handleLogin = () => {
     setIsLoggedIn(true);
     setShowLogin(false);
-    navigate('/'); 
+    localStorage.setItem('isLoggedIn', 'true'); 
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('token');
+    localStorage.removeItem('isLoggedIn');
   };
+
+  
+  const CreatePostPageWithAdminAuth = withAdminAuth(CreatepostPage);
+  const EditPostPageWithAdminAuth = withAdminAuth(EditPostPage);
+  const DeletePostPageWithAdminAuth = withAdminAuth(DeletePostPage);
+  const ViewPostsPageWithAdminAuth = withAdminAuth(ViewPostsPage);
 
   return (
     <div>
@@ -46,16 +52,10 @@ const App = () => {
         </div>
       </div>
       <Routes>
-        {isLoggedIn ? (
-          <>
-            <Route path="admin/create-post" element={<CreatepostPage />} />
-            <Route path="admin/edit-post" element={<EditPostPage />} />
-            <Route path="admin/delete-post" element={<DeletePostPage />} />
-            <Route path="admin/view-posts" element={<ViewPostsPage />} />
-          </>
-        ) : (
-          <Route path="admin/*" element={<Login onLogin={handleLogin} />} />
-        )}
+        <Route path="admin/create-post" element={<CreatePostPageWithAdminAuth />} />
+        <Route path="admin/edit-post" element={<EditPostPageWithAdminAuth />} />
+        <Route path="admin/delete-post" element={<DeletePostPageWithAdminAuth />} />
+        <Route path="admin/view-posts" element={<ViewPostsPageWithAdminAuth />} />
         <Route path="/" element={showLogin ? <Login onLogin={handleLogin} /> : <Posts />} />
       </Routes>
       <Footer />
