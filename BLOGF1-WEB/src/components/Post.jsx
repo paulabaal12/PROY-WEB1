@@ -1,24 +1,57 @@
-import React, { lazy, Suspense } from 'react';
-import PropTypes from 'prop-types';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
+import axios from 'axios';
+import PostSkeleton from './PostSkeleton';
 
-const LazyImage = lazy(() => import('./LazyImage'));
+const LazyPost = lazy(() => import('./Post'));
 
-const Post = ({ title, content, imageUrl, date }) => (
-  <div>
-    <h2>{title}</h2>
-    <p>{date}</p>
-    <Suspense fallback={<div>Cargando imagen...</div>}>
-      <LazyImage src={imageUrl} alt={title} />
-    </Suspense>
-    <p>{content}</p>
-  </div>
-);
+const Posts = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading]  = useState(true);
+  const [error, setError] = useState(null);
 
-Post.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/posts/');
+        setPosts(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (posts.length === 0) {
+    return <div>No posts available.</div>;
+  }
+
+  return (
+    <div style={{ paddingTop: '80px', paddingBottom: '100px' }}>
+      <Suspense fallback={<PostSkeleton />}>
+        {posts.map((post) => (
+          <LazyPost
+            key={post.id}
+            title={post.name_circuit}
+            content={post.highlights}
+            imageUrl={post.image_base64}
+            year={post.year}
+            country={post.country_circuit}
+            nameWinner={post.name_winner}
+            team={post.team}
+            date={post.date}
+            timeFastestLap={post.time_fastest_lap}
+          />
+        ))}
+      </Suspense>
+    </div>
+  );
 };
 
-export default Post;
+export default Posts;
