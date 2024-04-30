@@ -20,7 +20,7 @@ Para ejecutar el proyecto localmente, sigue estos pasos:
 * Asegúrate de tener Node.js instalado en tu sistema.
 2. Abre una terminal en la carpeta raíz del proyecto.
 3. Ejecuta el siguiente comando para instalar las dependencias del proyecto:
-npm install
+<h3>npm install</h3>
 4. Después de que se completen las instalaciones, ejecuta el siguiente comando para iniciar el servidor de desarrollo:
-npm run dev
+<h3>npm run dev</h3>
 5. Abre tu navegador web y visita http://localhost:3000 para ver el proyecto en funcionamiento.
