@@ -47,6 +47,8 @@ button:focus-visible {
   transition: border-color 0.25s;
   color: #1a1a1a;
   text-decoration: none;
+  width: auto;
+  display: inline-block;
 }
 
 .button2:hover {
@@ -67,5 +69,12 @@ button:focus-visible {
   }
   .button2 {
     background-color: #ebd1d1;
+  }
+}
+
+@media (min-width: 768px) {
+  .button2 {
+    width: auto; /* En pantallas más grandes, el botón puede tener su ancho natural */
+    margin-right: 18px;
   }
 }
