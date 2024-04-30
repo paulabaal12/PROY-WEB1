@@ -127,3 +127,21 @@
   .form-button:hover {
     background-color: #9c2323;
   }
+
+  .success-message {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color: greenyellow;
+    text-align: center;
+    font-size: large;
+  }
+  
+  .error-message {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: large;
+    text-align: center;
+    background-color: #de1013;
+  }
