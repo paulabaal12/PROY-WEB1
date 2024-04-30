@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Posts from './Posts';
 import Login from './components/Login';
 import Footer from './components/Footer';
-import { Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { Route, Routes, Link, Navigate } from 'react-router-dom';
 import CreatepostPage from './pages/CreatepostPage';
 import EditPostPage from './pages/EditPostPage';
 import DeletePostPage from './pages/DeletePostPage';
 import ViewPostsPage from './pages/viewposts';
-import withAdminAuth from './components/withAdmin'; 
+import withAdminAuth from './components/withAdmin';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
@@ -15,20 +15,13 @@ const App = () => {
 
   const handleLogin = () => {
     setIsLoggedIn(true);
-    setShowLogin(false);
-    localStorage.setItem('isLoggedIn', 'true'); 
+    localStorage.setItem('isLoggedIn', 'true');
   };
-
+  
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
   };
-
-  
-  const CreatePostPageWithAdminAuth = withAdminAuth(CreatepostPage);
-  const EditPostPageWithAdminAuth = withAdminAuth(EditPostPage);
-  const DeletePostPageWithAdminAuth = withAdminAuth(DeletePostPage);
-  const ViewPostsPageWithAdminAuth = withAdminAuth(ViewPostsPage);
 
   return (
     <div>
@@ -47,19 +40,34 @@ const App = () => {
           {isLoggedIn ? (
             <button onClick={handleLogout}>Cerrar Sesión</button>
           ) : (
-            <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
+            <Link to="/login" className="button4">Iniciar Sesión</Link>
           )}
         </div>
+
       </div>
       <Routes>
-        <Route path="admin/create-post" element={<CreatePostPageWithAdminAuth />} />
-        <Route path="admin/edit-post" element={<EditPostPageWithAdminAuth />} />
-        <Route path="admin/delete-post" element={<DeletePostPageWithAdminAuth />} />
-        <Route path="admin/view-posts" element={<ViewPostsPageWithAdminAuth />} />
-        <Route path="/" element={showLogin ? <Login onLogin={handleLogin} /> : <Posts />} />
+        <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
+        <Route path="/admin/*" element={isLoggedIn ? <AdminRoutes /> : <Navigate to="/login" />} />
+        <Route path="/" element={<Posts />} />
       </Routes>
       <Footer />
     </div>
+  );
+};
+
+const AdminRoutes = () => {
+  const CreatePostPageWithAdminAuth = withAdminAuth(CreatepostPage);
+  const EditPostPageWithAdminAuth = withAdminAuth(EditPostPage);
+  const DeletePostPageWithAdminAuth = withAdminAuth(DeletePostPage);
+  const ViewPostsPageWithAdminAuth = withAdminAuth(ViewPostsPage);
+
+  return (
+    <Routes>
+      <Route path="create-post" element={<CreatePostPageWithAdminAuth />} />
+      <Route path="edit-post" element={<EditPostPageWithAdminAuth />} />
+      <Route path="delete-post" element={<DeletePostPageWithAdminAuth />} />
+      <Route path="view-posts" element={<ViewPostsPageWithAdminAuth />} />
+    </Routes>
   );
 };
 

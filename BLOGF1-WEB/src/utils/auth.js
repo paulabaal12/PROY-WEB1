@@ -1,19 +1,18 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization;
+const SECRET_KEY = 'charlesleclerc';
 
-  if (!token) {
-    return res.status(401).json({ error: 'No se proporcionó un token de autenticación' });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(403).json({ error: 'Token de autenticación inválido' });
-  }
+// Función para generar un nuevo token
+export const generateToken = (payload, expiresIn = '1h') => {
+  return jwt.sign(payload, SECRET_KEY, { expiresIn });
 };
 
-module.exports = authMiddleware;
+// Función para verificar la validez de un token
+export const verifyToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    return decoded;
+  } catch (error) {
+    return null;
+  }
+};

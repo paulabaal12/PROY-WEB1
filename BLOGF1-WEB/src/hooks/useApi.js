@@ -4,9 +4,22 @@ import axios from 'axios';
 const useApi = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const api = axios.create({
-    baseURL: 'http://localhost:3001' //URL del API
+    baseURL: 'http://localhost:3001', // URL del API
   });
+
+  // Agrega un interceptor de solicitud para inyectar el token en todas las solicitudes
+  api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  }, (error) => {
+    return Promise.reject(error);
+  });
+
   const sendRequest = async (config) => {
     setLoading(true);
     try {
@@ -19,6 +32,8 @@ const useApi = () => {
       setLoading(false);
     }
   };
+
   return { loading, error, sendRequest };
 };
+
 export default useApi;
