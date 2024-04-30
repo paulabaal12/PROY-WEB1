@@ -11,10 +11,8 @@ El proyecto es un blog de Fórmula 1 desarrollado utilizando el framework Vite p
 Las tecnologías utilizadas en este proyecto son:
 | **Nombre de la tecnología** |**Description** |
 |----------|-------|
-|[React] |se eligió React porque es una biblioteca de JavaScript popular y ampliamente utilizada para construir interfaces de usuario interactivas y reactivas.|
-
-1. React: Se eligió React porque es una biblioteca de JavaScript popular y ampliamente utilizada para construir interfaces de usuario interactivas y reactivas.
-2. Vite: Se eligió Vite como el framework para React porque es un entorno de desarrollo rápido y ligero que proporciona una configuración de desarrollo optimizada y un tiempo de compilación rápido.
+|React |se eligió React porque es una biblioteca de JavaScript popular y ampliamente utilizada para construir interfaces de usuario interactivas y reactivas.|
+|Vite | Se eligió Vite como el framework para React porque es un entorno de desarrollo rápido y ligero que proporciona una configuración de desarrollo optimizada y un tiempo de compilación rápido.|
 
 # Instrucciones para ejecutar el proyecto localmente
 
