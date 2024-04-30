@@ -9,7 +9,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/auth/login', { username, password });
+      const response = await axios.post('/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
       navigate.push('/admin');
