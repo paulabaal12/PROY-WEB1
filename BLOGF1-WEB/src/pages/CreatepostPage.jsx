@@ -51,7 +51,7 @@ const CreatePostPage = () => {
 
   return (
     <div>
-      <h1>Crear Nueva Publicación</h1>
+      <h1 className="title" >Crear Nueva Publicación</h1>
       <form onSubmit={handleCreatePost}>
         <input
           type="text"

@@ -44,12 +44,13 @@ const DeletePostPage = () => {
 
   return (
     <div>
-      <h1>Eliminar Publicación</h1>
+      <h1 className="title">Eliminar Publicación</h1>
       {posts.map((post) => (
-        <div key={post.id}>
-          <h3>{post.name_circuit}</h3>
-          <p>{post.highlights}</p>
-          <button onClick={() => handleDeletePost(post.id)}>Eliminar</button>
+        <div key={post.id} className="post-container1">
+           <h3>{post.name_circuit} | {post.name_winner} | {post.year}</h3>
+              <p>{post.highlights}</p>
+              <img src={post.image_base64} alt="Post" style={{ display: 'block', margin: '0 auto', width: '200px', height: '200px', objectFit: 'cover' }} />
+          <button onClick={() => handleDeletePost(post.id)} className='button3'>Eliminar</button>
         </div>
       ))}
     </div>
@@ -57,3 +58,4 @@ const DeletePostPage = () => {
 };
 
 export default DeletePostPage;
+

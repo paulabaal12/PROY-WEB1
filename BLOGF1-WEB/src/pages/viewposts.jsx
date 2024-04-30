@@ -27,7 +27,7 @@ const ViewPostsPage = () => {
 
   return (
     <div>
-      <h1>Ver Todas las Publicaciones</h1>
+      <h1 className="title">Ver Todas las Publicaciones</h1>
       {posts.map((post) => (
         <Post
           key={post.id}

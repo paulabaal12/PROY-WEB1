@@ -60,8 +60,7 @@ const EditPostPage = () => {
 
   return (
     <div>
-      <div classname = 'clasesss'></div>
-      <h1>Editar Publicación</h1>
+       <h1 className="title">Editar Publicación</h1>
       {editingPost ? (
         <form onSubmit={handleUpdatePost}>
           <input
@@ -130,12 +129,13 @@ const EditPostPage = () => {
         </form>
       ) : (
         <>
-          <h2>Selecciona una publicación para editar</h2>
+         <h3>Selecciona una publicación para editar</h3>
           {posts.map((post) => (
-            <div key={post.id}>
-              <h3>{post.name_circuit}</h3>
+            <div key={post.id} className="post-container1">
+              <h3>{post.name_circuit} | {post.name_winner} | {post.year}</h3>
               <p>{post.highlights}</p>
-              <button onClick={() => handleEditPost(post)}>Editar</button>
+              <img src={post.image_base64} alt="Post" style={{ display: 'block', margin: '0 auto', width: '200px', height: '200px', objectFit: 'cover' }} />
+              <button onClick={() => handleEditPost(post)} className='button3'>Editar</button>
             </div>
           ))}
         </>
