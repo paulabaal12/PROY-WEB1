@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
 import axios from 'axios';
+import Loading from './Loading';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -23,7 +24,7 @@ const Posts = () => {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return <Loading />; 
   }
 
   if (error) {
@@ -54,16 +55,6 @@ const Posts = () => {
   );
 };
 
-const Loading = () => {
-  const loadingStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    fontSize: '24px',
-    fontWeight: 'bold',
-  };
-  return <div style={loadingStyle}>Loading...</div>;
-};
+
 
 export default Posts;
