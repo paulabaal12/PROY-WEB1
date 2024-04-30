@@ -62,70 +62,90 @@ const EditPostPage = () => {
     <div>
        <h1 className="title">Editar Publicación</h1>
       {editingPost ? (
-        <form onSubmit={handleUpdatePost}>
+        <form onSubmit={handleUpdatePost} className="form-container">
+          <label className="form-label">Nombre del Circuito</label>
           <input
             type="text"
             name="name_circuit"
             placeholder="Nombre del circuito"
             value={editingPost.name_circuit}
             onChange={handleChange}
+            className="form-input-wide"
           />
+          <label className="form-label">Ciudad del Circuito</label>
           <input
             type="text"
             name="country_circuit"
             placeholder="País del circuito"
             value={editingPost.country_circuit}
             onChange={handleChange}
+            className="form-input-wide"
+
           />
+          <label className="form-label">Nombre del Ganador (Piloto)</label>
           <input
             type="text"
             name="name_winner"
             placeholder="Nombre del ganador"
             value={editingPost.name_winner}
             onChange={handleChange}
+            className="form-input-wide"
           />
+          <label className="form-label">Nombre del Equipo Ganador</label>
           <input
             type="text"
             name="team"
             placeholder="Equipo del ganador"
             value={editingPost.team}
             onChange={handleChange}
+            className="form-input-wide"
           />
+          <label className="form-label">Fecha de la carrera</label>
           <input
             type="date"
             name="date"
             placeholder="Fecha de la carrera"
             value={editingPost.date}
             onChange={handleChange}
+            className="form-input-wide"
           />
+           <label className="form-label">Año de la carrera</label>
           <input
             type="number"
             name="year"
             placeholder="Año"
             value={editingPost.year}
             onChange={handleChange}
+            className="form-input-wide"
           />
+          <label className="form-label">Tiempo de la vuelta más rápida</label>
           <input
             type="text"
             name="time_fastest_lap"
             placeholder="Tiempo de vuelta más rápida"
             value={editingPost.time_fastest_lap}
-            onChange={handleChange}
+            onChange={handleChange} 
+            className="form-input-wide"
           />
+          <label className="form-label">Lo más destacado de la carrera</label>
           <textarea
             name="highlights"
             placeholder="Puntos destacados"
             value={editingPost.highlights}
             onChange={handleChange}
+            className="form-input-wide"
+
           />
+           <label className="form-label">URL de la imagen</label>
           <input
             type="text"
             name="image_base64"
-            placeholder="URL de la imagen (base64)"
+            placeholder="URL de la imagen"
             value={editingPost.image_base64}
             onChange={handleChange}
+            className="form-input-wide"
           />
-          <button type="submit">Actualizar Publicación</button>
+          <button type="submit" className='form-button'>Actualizar Publicación</button>
         </form>
       ) : (
         <>
