@@ -60,7 +60,7 @@ const EditPostPage = () => {
 
   return (
     <div>
-       <h1 className="title">Editar Publicación</h1>
+       <h1 className="title">| Editar Publicación | Prestar atención a la fecha |</h1>
       {editingPost ? (
         <form onSubmit={handleUpdatePost} className="form-container">
           <label className="form-label">Nombre del Circuito</label>
