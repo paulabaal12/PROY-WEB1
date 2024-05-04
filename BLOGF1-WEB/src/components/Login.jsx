@@ -1,4 +1,3 @@
-// Login.jsx
 import { useState } from 'react';
 import CryptoJS from 'crypto-js';
 import { useNavigate } from 'react-router-dom';
