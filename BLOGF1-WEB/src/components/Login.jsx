@@ -1,30 +1,28 @@
+// Login.jsx
 import { useState } from 'react';
 import CryptoJS from 'crypto-js';
-import useToken from '../hooks/useToken';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 
-function Login({ onLogin, setIsLoggedIn }) {
-  const { setToken } = useToken();
+function Login({ onLogin }) {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const defaultUsername = 'admin';
-    const defaultPassword = 'leclerc';
 
-    if (username === defaultUsername && CryptoJS.MD5(password).toString() === CryptoJS.MD5(defaultPassword).toString()) {
-      const access_token = 'token_de_ejemplo';
-      setToken(access_token);
-      setIsLoggedIn(true); // Actualizar el estado isLoggedIn
-      navigate('/admin', { replace: true });
-    } else {
-      alert("Usuario inválido, intentalo nuevamente");
-    }
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const defaultUsername = 'admin';
+  const defaultPassword = 'leclerc';
+
+  if (username === defaultUsername && CryptoJS.MD5(password).toString() === CryptoJS.MD5(defaultPassword).toString()) {
+    const access_token = 'token_de_ejemplo';
+    onLogin(access_token); // Llama a la función onLogin con el token
+    navigate('/admin', { replace: true });
+  } else {
+    alert("Usuario inválido, intentalo nuevamente");
+  }
+};
 
   return (
     <div className="login-container">

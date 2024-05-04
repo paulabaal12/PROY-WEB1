@@ -24,7 +24,6 @@ const App = () => {
     setIsLoggedIn(storedIsLoggedIn);
     setToken(storedToken);
 
-    axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
   }, []);
 
   const handleLogin = (token) => {
@@ -32,9 +31,10 @@ const App = () => {
     setToken(token);
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('token', token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     navigate('/admin');
   };
-
+  
   const handleLogout = () => {
     setIsLoggedIn(false);
     setToken(null);

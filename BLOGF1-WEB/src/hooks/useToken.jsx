@@ -24,39 +24,20 @@ const TokenProvider = ({ children }) => {
     useEffect(() => {
         if (token) {
             localStorage.setItem('access_token', token);
-            localStorage.setItem('login_time', Date.now());
         }
     }, [token]);
-
-    const isLoggedIn = () => {
-        const loginTime = localStorage.getItem('login_time');
-        if (!loginTime) {
-            return false;
-        }
-
-        const currentTime = Date.now();
-        const oneHour = 60 * 60 * 1000;
-
-        if (currentTime - loginTime > oneHour) {
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('login_time');
-            return false;
-        }
-
-        return !!token;
-    };
 
     const getRawToken = () => {
         return parseToken(token);
     };
 
     return (
-        <TokenContext.Provider value={{ token, setToken, isLoggedIn, getRawToken }}>
+        <TokenContext.Provider value={{ token, setToken, getRawToken }}>
             {children}
         </TokenContext.Provider>
     );
 };
-
+   
 const useToken = () => {
     return useContext(TokenContext);
 };
