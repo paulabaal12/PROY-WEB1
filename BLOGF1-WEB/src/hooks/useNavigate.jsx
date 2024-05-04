@@ -1,11 +1,10 @@
-// hooks/useNavigate.js
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate as useReactRouterNavigate } from 'react-router-dom'; // Importar useNavigate desde react-router-dom
+import { useNavigate as useReactRouterNavigate } from 'react-router-dom'; 
 
 const NavigationContext = createContext({ page: '/', navigate: () => {} });
 
 const NavigationProvider = ({ children }) => {
-    const navigate = useReactRouterNavigate(); // Usar useNavigate de react-router-dom
+    const navigate = useReactRouterNavigate(); 
     const [page, setPage] = useState('/');
 
     useEffect(() => {
@@ -15,7 +14,7 @@ const NavigationProvider = ({ children }) => {
         };
 
         window.addEventListener('hashchange', handleNavigate);
-        handleNavigate(); // Establecer la ruta inicial
+        handleNavigate(); 
 
         return () => {
             window.removeEventListener('hashchange', handleNavigate);
@@ -23,7 +22,7 @@ const NavigationProvider = ({ children }) => {
     }, []);
 
     const navigateTo = (url) => {
-        navigate(url); // Usar navigate de react-router-dom
+        navigate(url); 
         setPage(url);
         window.location.hash = url;
     };

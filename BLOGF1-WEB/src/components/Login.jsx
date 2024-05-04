@@ -16,8 +16,8 @@ const handleSubmit = async (e) => {
   const defaultPassword = 'leclerc';
 
   if (username === defaultUsername && CryptoJS.MD5(password).toString() === CryptoJS.MD5(defaultPassword).toString()) {
-    const access_token = 'token_de_ejemplo';
-    onLogin(access_token); // Llama a la función onLogin con el token
+    const access_token = 'token';
+    onLogin(access_token); 
     navigate('/admin', { replace: true });
   } else {
     alert("Usuario inválido, intentalo nuevamente");
