@@ -20,11 +20,16 @@ const App = () => {
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const storedToken = localStorage.getItem('token');
-
+  
     setIsLoggedIn(storedIsLoggedIn);
     setToken(storedToken);
-
+  
+    if (storedIsLoggedIn && storedToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+      navigate('/admin');
+    }
   }, []);
+  
 
   const handleLogin = (token) => {
     setIsLoggedIn(true);
