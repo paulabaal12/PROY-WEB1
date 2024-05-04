@@ -9,7 +9,7 @@ const useApi = () => {
     baseURL: 'http://localhost:3001', // URL del API
   });
 
-  // Agrega un interceptor de solicitud para inyectar el token en todas las solicitudes
+
   api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {

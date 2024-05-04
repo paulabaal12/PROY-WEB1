@@ -1,73 +1,85 @@
-import React, { useState } from 'react';
-import Posts from './Posts';
-import Login from './components/Login';
+import React, { useState, useEffect } from 'react';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Footer from './components/Footer';
-import { Route, Routes, Link, Navigate } from 'react-router-dom';
-import CreatepostPage from './pages/CreatepostPage';
+import { TokenProvider } from './hooks/useToken';
+import { NavigationProvider } from './hooks/useNavigate';
+import Login from './components/Login';
+import ViewPostsPage from './pages/viewposts';
+import CreatePostPage from './pages/CreatepostPage';
 import EditPostPage from './pages/EditPostPage';
 import DeletePostPage from './pages/DeletePostPage';
-import ViewPostsPage from './pages/viewposts';
-import withAdminAuth from './components/withAdmin';
+import Posts from './Posts';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
-  const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
 
-  const handleLogin = () => {
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const storedToken = localStorage.getItem('token');
+
+    setIsLoggedIn(storedIsLoggedIn);
+    setToken(storedToken);
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+  }, []);
+
+  const handleLogin = (token) => {
     setIsLoggedIn(true);
+    setToken(token);
     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('token', token);
+    navigate('/admin');
   };
-  
+
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setToken(null);
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+    navigate('/');
   };
 
   return (
-    <div>
-      <div className="header">
-        <img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" />
-        <h1>F1 Blog</h1>
-        {isLoggedIn && (
-          <div className="admin-options login-button">
-            <Link to="admin/create-post" className='button2'>Crear Post</Link>
-            <Link to="admin/edit-post" className='button2'>Editar Post</Link>
-            <Link to="admin/delete-post" className='button2'>Eliminar Post</Link>
-            <Link to="admin/view-posts" className='button2'>Ver Posts</Link>
+    <TokenProvider>
+      <NavigationProvider>
+        <div>
+          <div className="header">
+            <img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" />
+            <h1>F1 Blog</h1>
+            <div className="login-button">
+              {isLoggedIn ? (
+                <>
+                  <Link to="/create-post" className="button2">Crear Post</Link>
+                  <Link to="/edit-post" className="button2">Editar Post</Link>
+                  <Link to="/delete-post" className="button2">Eliminar Post</Link>
+                  <Link to="/view-posts" className="button2">Ver Posts</Link>
+                  <button onClick={handleLogout}>Cerrar Sesión</button>
+                </>
+              ) : (
+                <Link to="/login" className="button4">
+                  Iniciar Sesión
+                </Link>
+              )}
+            </div>
+
           </div>
-        )}
-        <div className="login-button">
-          {isLoggedIn ? (
-            <button onClick={handleLogout}>Cerrar Sesión</button>
-          ) : (
-            <Link to="/login" className="button4">Iniciar Sesión</Link>
-          )}
+          <Routes>
+            <Route path="/" element={<Posts />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/admin" element={<Posts />} />
+            <Route path="/create-post" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={CreatePostPage} />} />
+            <Route path="/edit-post" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={EditPostPage} />} />
+            <Route path="/delete-post" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={DeletePostPage} />} />
+            <Route path="/view-posts" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={ViewPostsPage} />} />
+          </Routes>
+          <Footer />
         </div>
-
-      </div>
-      <Routes>
-        <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
-        <Route path="/admin/*" element={isLoggedIn ? <AdminRoutes /> : <Navigate to="/login" />} />
-        <Route path="/" element={<Posts />} />
-      </Routes>
-      <Footer />
-    </div>
-  );
-};
-
-const AdminRoutes = () => {
-  const CreatePostPageWithAdminAuth = withAdminAuth(CreatepostPage);
-  const EditPostPageWithAdminAuth = withAdminAuth(EditPostPage);
-  const DeletePostPageWithAdminAuth = withAdminAuth(DeletePostPage);
-  const ViewPostsPageWithAdminAuth = withAdminAuth(ViewPostsPage);
-
-  return (
-    <Routes>
-      <Route path="create-post" element={<CreatePostPageWithAdminAuth />} />
-      <Route path="edit-post" element={<EditPostPageWithAdminAuth />} />
-      <Route path="delete-post" element={<DeletePostPageWithAdminAuth />} />
-      <Route path="view-posts" element={<ViewPostsPageWithAdminAuth />} />
-    </Routes>
+      </NavigationProvider>
+    </TokenProvider>
   );
 };
 
