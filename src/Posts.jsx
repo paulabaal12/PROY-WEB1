@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Post from './Post';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
+import Skeleton from './components/Skeleton';
+import './index.css';
+
+const PostLazy = lazy(() => import('./Post'));
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -19,42 +22,41 @@ const Posts = () => {
         setLoading(false);
       }
     };
-
     fetchPosts();
   }, []);
 
   if (loading) {
     return <Loading />; 
   }
-
+  
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className='post-container2 post-details'>Error: {error}</div>;
   }
 
   if (posts.length === 0) {
-    return <div>No posts available.</div>;
+    return <div className='post-container2 post-details'>No posts available.</div>;
   }
 
   return (
     <div style={{ paddingTop: '80px', paddingBottom: '100px' }}>
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          title={post.name_circuit}
-          content={post.highlights}
-          imageUrl={post.image_base64}
-          year={post.year}
-          country={post.country_circuit}
-          nameWinner={post.name_winner}
-          team={post.team}
-          date={post.date}
-          timeFastestLap={post.time_fastest_lap}
-        />
-      ))}
+      <Suspense fallback={<Skeleton />}>
+        {posts.map((post) => (
+          <PostLazy
+            key={post.id}
+            title={post.name_circuit}
+            content={post.highlights}
+            imageUrl={post.image_base64}
+            year={post.year}
+            country={post.country_circuit}
+            nameWinner={post.name_winner}
+            team={post.team}
+            date={post.date}
+            timeFastestLap={post.time_fastest_lap}
+          />
+        ))}
+      </Suspense>
     </div>
   );
 };
-
-
 
 export default Posts;
