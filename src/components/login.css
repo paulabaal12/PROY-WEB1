@@ -12,12 +12,31 @@
     text-align: center;
     color: #d82834;
   }
+  .admin1 {
+    font-size: 14px;
+    text-align: start;
+    color: #d82834;
+  }
 
+  .admin2 {
+    font-size: 22px;
+    text-align: start;
+    color: #d82834;
+  }
+
+  .admin4 {
+    font-size: 30px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: black;
+  }
   .login-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    
   }
+  
   
   .login-form input[type="text"],
   .login-form input[type="password"] {
@@ -40,10 +59,14 @@
   }
   
   .login-container {
+    margin-top: 150px;
+    margin-bottom: 100px;
+    align-self: center;
     background-color: white;
     padding: 65px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
   }
   
   .login-form input {

@@ -4,13 +4,7 @@ import axios from 'axios';
 import Footer from './components/Footer';
 import { TokenProvider } from './hooks/useToken';
 import { NavigationProvider } from './hooks/useNavigate';
-import Login from './components/Login';
-import ViewPostsPage from './pages/viewposts';
-import CreatePostPage from './pages/CreatepostPage';
-import EditPostPage from './pages/EditPostPage';
-import DeletePostPage from './pages/DeletePostPage';
-import Posts from './Posts';
-import ProtectedRoute from './components/ProtectedRoute';
+import Router from './router/index'; 
 
 const App = () => {
   const navigate = useNavigate();
@@ -72,15 +66,7 @@ const App = () => {
             </div>
 
           </div>
-          <Routes>
-            <Route path="/" element={<Posts />} />
-            <Route path="/login" element={<Login onLogin={handleLogin} setIsLoggedIn={setIsLoggedIn} />} />
-            <Route path="/admin" element={<Posts />} />
-            <Route path="/create-post" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={CreatePostPage} />} />
-            <Route path="/edit-post" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={EditPostPage} />} />
-            <Route path="/delete-post" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={DeletePostPage} />} />
-            <Route path="/view-posts" element={<ProtectedRoute isLoggedIn={isLoggedIn} component={ViewPostsPage} />} />
-          </Routes>
+          <Router onLogin={handleLogin} isLoggedIn={isLoggedIn} /> 
           <Footer />
         </div>
       </NavigationProvider>
