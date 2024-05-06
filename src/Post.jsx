@@ -1,20 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const Post = ({ title, content, imageUrl, year, country, nameWinner, team, date, timeFastestLap }) => {
+  const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handlePostClick = () => {
+    navigate('/postdetails', { state: { title, content, imageUrl, year, country, nameWinner, team, date, timeFastestLap } });
+  };
+
   const styles = {
     backgroundColor: 'white',
-    border: '4px solid red',
+    border: '4px solid red' , 
+    boxShadow: isHovered ? '4px 4px 4px red' : '4px 4px 4px #ccc', 
     padding: '20px',
     margin: '20px auto',
     maxWidth: '1000px',
     textAlign: 'center',
     position: 'relative',
     zIndex: 1,
+    cursor: 'pointer',
   };
+  
 
   return (
-    <div style={styles}>
+    <div
+      style={styles}
+      onClick={handlePostClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <h1>{title}</h1>
       <h2>{country} | {year}</h2>
       <div className="post-container">

@@ -10,6 +10,7 @@ import EditPostPage from '../pages/EditPostPage';
 import DeletePostPage from '../pages/DeletePostPage';
 import ViewPostsPage from '../pages/viewposts';
 import withAdminAuth from '../components/withAdmin';
+import PostDetails from '../pages/postdetails';
 
 const routes = {
   '/': { 
@@ -24,6 +25,11 @@ const routes = {
   '/register': {
     component: Register, 
     requiresAuth: false },
+
+   '/postdetails' :{
+    component: PostDetails, 
+    requiresAuth: false
+   }  ,
 
   '/admin': {
      component: Posts,
