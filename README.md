@@ -17,16 +17,16 @@ Las tecnologías utilizadas en este proyecto son:
 |----------|-------|
 |React |Se eligió React porque es una biblioteca de JavaScript popular y ampliamente utilizada para construir interfaces de usuario interactivas y reactivas.|
 |Vite | Se eligió Vite como el framework para React porque es un entorno de desarrollo rápido y ligero que proporciona una configuración de desarrollo optimizada y un tiempo de compilación rápido.|
-| | |
-| | |
-| | |
+|CSS |Se utilizó para definir y aplicar estilos visuales a los componentes de la interfaz de usuario, como el diseño, los colores, las fuentes y las animaciones.|
+|Javascript | Se utilizó para implementar la lógica de la aplicación, o bien realizar operaciones asíncronas, como solicitudes HTTP.|
+|HTML | Se utilizó como la estructura base para definir el contenido y la estructura de las páginas web|
 
 # Instrucciones para ejecutar el proyecto localmente
 
 Para ejecutar el proyecto localmente, sigue estos pasos:
 
 1. Clona el repositorio en tu máquina local.
-**Asegúrate de tener Node.js instalado en tu sistema**
+-  **Asegúrate de tener Node.js instalado en tu sistema**
 2. Abre una terminal en la carpeta raíz del proyecto.
 3. Ejecuta el siguiente comando para instalar las dependencias del proyecto:
 ```
