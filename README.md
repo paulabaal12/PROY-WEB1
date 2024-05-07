@@ -4,10 +4,10 @@
 # Descripción del proyecto
 
 El proyecto es un blog de Fórmula 1 desarrollado utilizando el framework Vite para React. Teniendo un área de administración, en donde se encuentran las siguientes funciones.
-`Crear nuevas publicaciones.`
-`Visualizar todas las publicaciones existentes.`
-`Actualizar publicaciones existentes..`
-`Eliminar publicaciones.`
+* `Crear nuevas publicaciones.`
+* `Visualizar todas las publicaciones existentes.`
+* `Actualizar publicaciones existentes.`
+* `Eliminar publicaciones.`
 
 
 # Tecnologías utilizadas y por qué se eligieron
