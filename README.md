@@ -36,4 +36,5 @@ npm install
 5. Abre tu navegador web y visita http://localhost:{puerto} para ver el proyecto en funcionamiento.
 6. Espera unos segundos en lo que carga el API.
 7. Al cargar, si quieres ser administrador al darle click al botón de iniciar sesión , abajo puedes registrarte y luego iniciar sesión.
-8. Después ya puedes hacer uso de las funciones para administrador **Consejo🤩 : Si quieres editar, borrar, crear o ver los posts espera a que cargue o si no hay crea un nuevo post😊** 
+8. Después ya puedes hacer uso de las funciones para administrador 
+**Consejo🤩 : Si quieres editar, borrar, crear o ver los posts espera a que cargue o si no hay crea un nuevo post😊** 
